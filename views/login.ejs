@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="newnavbar.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="navbar" id="navbar"></div>
+
+    <div class="container">
+        <form action="/login" method="POST">
+            <div class="texts">
+                <h2>Welcome Back</h2>
+                <p>Log in to manage your reading list and favorite stories.</p>
+            </div>
+
+            <div class="username">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="password">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button id="login" type="submit">Login</button>
+            <p class="user">New user? <a href="/signUp" id="account">Create Account</a></p>
+        </form>
+    </div>
+
+    <script src="/assets/dynamicNavbar.js"></script>
+    <script src="/assets/login.js"></script>
+
+</body>
+
+</html>

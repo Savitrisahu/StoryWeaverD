@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Your Story</title>
+  <link rel="stylesheet" href="submit.css">
+  <link rel="stylesheet" href="newnavbar.css">
+</head>
+
+<body>
+  <div class="navbar" id="navbar"></div>
+
+  <div class="mainContainer">
+    <div class="texts">
+      <h2>Submit Your Story</h2>
+      <p>Submissions will be saved to your account once logged in.</p>
+    </div>
+
+    <div class="container">
+      <% if (user) { %>
+        <form action="/Story-Submit" method="POST" id="storyForm">
+          <div class="titleAuthorBox">
+            <div class="title">
+              <label for="title">Title</label>
+              <input type="text" id="title" name="storyTitle" placeholder="Story Title" required>
+            </div>
+
+            <div class="author">
+              <label for="author">Author</label>
+              <input type="text" id="author" name="AuthorName" placeholder="Author Name" required>
+            </div>
+          </div>
+
+          <div class="genre">
+            <label for="genre">Genre</label>
+            <select id="genre" name="Genre" required>
+              <option value="Horror">Horror</option>
+              <option value="Mystery">Mystery</option>
+              <option value="Sci-Fi">Sci-Fi</option>
+              <option value="Romance">Romance</option>
+              <option value="Fantasy">Fantasy</option>
+              <option value="Adventure">Adventure</option>
+              <option value="Historical">Historical</option>
+              <option value="Children">Children</option>
+            </select>
+          </div>
+
+          <div class="content">
+            <label for="story">Story Content</label>
+            <textarea id="story" name="StoryContent" placeholder="Write your story..." required></textarea>
+          </div>
+
+          <button type="submit" id="submit">Submit Story</button>
+        </form>
+        <% } else { %>
+          <p>Please <a href="/login">log in</a> to submit a story.</p>
+          <% } %>
+    </div>
+
+  </div>
+
+  <!-- <script src="/assets/submit.js"></script> -->
+
+  <script src="/assets/logout.js"></script>
+
+  <script src="/assets/dynamicNavbar.js"></script>
+   <script src="/assets/deleteAccount.js"></script>
+
+</body>
+
+</html>

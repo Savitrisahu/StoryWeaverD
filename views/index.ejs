@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Weaver Anthology</title>
+    <link rel="stylesheet" href="/home.css">
+    <link rel="stylesheet" href="/homeResponisvePage.css">
+    <link rel="stylesheet" href="/newnavbar.css">
+    <link rel="stylesheet" href="/colorPage.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="navbar" id="navbar"></div>
+
+    <div class="container">
+        <div class="headings">
+            <h2>Featured Stories</h2>
+            <p>Discover new worlds and compelling narratives from our top picks.</p>
+        </div>
+
+        <div class="storyBox">
+            <% if (stories && stories.length> 0) { %>
+                <% stories.forEach((story, i)=> { %>
+                    <div class="storyBoxes box<%= i+1 %>">
+                        <p class="genre <%= story.genre ? story.genre.toLowerCase().replace(/\s+/g, '-') : '' %>">
+                            <%= story.genre || 'Unknown' %>
+                        </p>
+                        <div class="title">
+                            <a href="/story/<%= story._id %>">
+                                <%= story.title || 'Untitled' %>
+                            </a>
+                        </div>
+                        <div class="story">
+                            <p>
+                                <%= story.content ? story.content.substring(0, 150) : 'No content available' %>...
+                            </p>
+                        </div>
+                        <hr>
+                        <div class="authorLike">
+                            <p>By <%= story.author || 'Anonymous' %>
+                            </p>
+                            <button class="likeBtn" data-id="<%= story._id %>">
+                                Like (<span class="likeCount">
+                                    <%= story.likes || 0 %>
+                                </span>)
+                            </button>
+
+                        </div>
+                    </div>
+                    <% }) %>
+                        <% } else { %>
+                            <p>No stories available at the moment.</p>
+                            <% } %>
+        </div>
+
+        <a href="/library" id="browse">Browse More Stories</a>
+    </div>
+
+    <script src="/assets/dynamicNavbar.js"></script>
+    <script src="/assets/library.js"></script>
+    <script src="/assets/logout.js"></script>
+    <script src="/assets/deleteAccount.js"></script>
+
+</body>
+
+</html>

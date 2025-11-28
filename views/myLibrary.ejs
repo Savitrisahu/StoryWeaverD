@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library</title>
+    <link rel="stylesheet" href="/library.css">
+    <link rel="stylesheet" href="/newnavbar.css">
+    <link rel="stylesheet" href="/colorPage.css">
+    <link rel="stylesheet" href="/responsiveLibrary.css">
+</head>
+
+<body>
+
+    <div class="navbar" id="navbar"></div>
+
+    <% const liked=likedStories || []; const read=readStories || []; %>
+
+        <div class="mainContainer">
+            <div class="personalLibrary">
+                <h2>My Personal Library</h2>
+                <p>Stories you've liked or read. (<%= liked.length + read.length %> total)</p>
+            </div>
+
+            <div class="container">
+
+                <% if (liked.length===0 && read.length===0) { %>
+                    <p>Your library is currently empty. Start interacting with stories in the main <a
+                            href="/library">Library</a>!</p>
+                    <% } %>
+
+                        <!-- Liked Stories -->
+                        <% if (liked.length> 0) { %>
+                            <h3 class="liked-read">Liked Stories</h3>
+                            <div class="storyBox">
+                                <% liked.forEach((story, i)=> { %>
+                                    <div class="storyBoxes box<%= i+1 %>">
+                                        <p
+                                            class="genre <%= story.genre ? story.genre.toLowerCase().replace(/\s+/g, '-') : '' %>">
+                                            <%= story.genre || 'Unknown' %>
+                                        </p>
+
+                                        <div class="title">
+                                            <a href="/story/<%= story._id %>">
+                                                <%= story.title || 'Untitled' %>
+                                            </a>
+                                        </div>
+
+                                        <div class="story">
+                                            <p>
+                                                <%= story.content ? story.content.substring(0, 150)
+                                                    : 'No content available' %>...
+                                            </p>
+                                        </div>
+
+                                        <hr>
+
+                                        <div class="authorLike">
+                                            <p>By <%= story.author || 'Anonymous' %>
+                                            </p>
+                                        </div>
+
+                                        <!-- REMOVE FROM LIKED -->
+                                        <form action="/unlike/<%= story._id %>" method="POST">
+                                            <button type="submit" class="remove-btn">Remove ❤️</button>
+                                        </form>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                            <% } %>
+
+                                <!-- Read Stories -->
+                                <% if (read.length> 0) { %>
+                                    <h3 class="liked-read">Read Stories</h3>
+                                    <div class="storyBox">
+                                        <% read.forEach((story, i)=> { %>
+                                            <div class="storyBoxes box<%= i+1 %>">
+                                                <p
+                                                    class="genre <%= story.genre ? story.genre.toLowerCase().replace(/\s+/g, '-') : '' %>">
+                                                    <%= story.genre || 'Unknown' %>
+                                                </p>
+
+                                                <div class="title">
+                                                    <a href="/story/<%= story._id %>">
+                                                        <%= story.title || 'Untitled' %>
+                                                    </a>
+                                                </div>
+
+                                                <div class="story">
+                                                    <p>
+                                                        <%= story.content ? story.content.substring(0, 150)
+                                                            : 'No content available' %>...
+                                                    </p>
+                                                </div>
+
+                                                <hr>
+
+                                                <div class="authorLike">
+                                                    <p>By <%= story.author || 'Anonymous' %>
+                                                    </p>
+                                                </div>
+
+                                                <!-- REMOVE FROM READ -->
+                                                <form action="/unread/<%= story._id %>" method="POST">
+                                                    <button type="submit" class="remove-btn">Remove ✔</button>
+                                                </form>
+                                            </div>
+                                            <% }) %>
+                                    </div>
+                                    <% } %>
+
+            </div>
+        </div>
+
+        <script src="/assets/dynamicNavbar.js"></script>
+        <script src="/assets/logout.js"></script>
+         <script src="/assets/deleteAccount.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= story.title %> - Story Weaver
+    </title>
+    <link rel="stylesheet" href="/story.css">
+    <link rel="stylesheet" href="/newnavbar.css">
+    <link rel="stylesheet" href="/colorPage.css">
+</head>
+
+<body>
+    <div class="navbar" id="navbar"></div>
+
+
+    <a href="/library" id="direction">&larr; Back to Library</a>
+    <a href="/StoryGenrePage" id="direction2">&larr; Back to Stories Page</a>
+
+    <div class="storyboard">
+        <li id="storyGenre" class="<%= story.genre ? story.genre.toLowerCase().replace(/\s+/g, '-') : 'unknown' %>">
+            <%= story.genre || 'Unknown' %>
+        </li>
+        <h1 id="storyTitle">
+            <%= story.title || 'Untitled' %>
+        </h1>
+        <p id="storyAuthor">By <%= story.author || 'Anonymous' %>
+        </p>
+
+        <div class="storyContent">
+            <p>
+                <%= story.content || 'No content available' %>
+            </p>
+        </div>
+
+        <hr>
+        <div class="storyActions">
+            <button class="likeBtn" data-id="<%= story._id %>">
+                Like (<span class="likeCount">
+                    <%= story.likes || 0 %>
+                </span>)
+            </button>
+
+            <% if (user) { %>
+                <button class="read" data-id="<%= story._id %>">Mark as Read</button>
+                <% } %>
+
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('click', async (e) => {
+            if (e.target.classList.contains('read')) {
+                const id = e.target.dataset.id;
+
+                const res = await fetch(`/read/${id}`, {
+                    method: 'POST'
+                });
+
+                if (res.ok) {
+                    e.target.textContent = "Read ✔";
+                }
+            }
+        });
+
+    </script>
+
+    <script src="/assets/story.js"></script>
+    <script src="/assets/logout.js"></script>
+    <script src="/assets/dynamicNavbar.js"></script>
+    <script src="/assets/likeBtn.js"></script>
+     <script src="/assets/deleteAccount.js"></script>
+
+</body>
+
+</html>

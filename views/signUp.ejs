@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="signUp.css">
+    <link rel="stylesheet" href="newnavbar.css">
+</head>
+
+<body>
+    <div class="navbar" id="navbar"></div>
+
+    <div class="container">
+        <div class="texts">
+                <h2>Create Account</h2>
+                <p>Sign up to join the Story Weaver community.</p>
+            </div>
+        <form action="/signup" method="POST">
+            <div class="username">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="email">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="password">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <button id="signup" type="submit">Sign Up</button>
+        </form>
+
+        <p class="sign">Already have an account? <a href="/login">Log in</a></p>
+    </div>
+
+    <script src="/assets/signup.js"></script>
+    <script src="/assets/dynamicNavbar.js"></script>
+    <script src="/assets/logout.js"></script>
+
+
+</body>
+
+</html>

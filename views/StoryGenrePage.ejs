@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= genre %> Stories - Story Weaver
+  </title>
+  <link rel="stylesheet" href="/newnavbar.css">
+  <link rel="stylesheet" href="/library.css">
+  <link rel="stylesheet" href="/colorPage.css">
+  <link rel="stylesheet" href="/responsiveLibrary.css">
+</head>
+
+<body>
+  <div id="navbar" class="navbar"></div>
+
+  <div class="container">
+    <div class="headings">
+      <h2 id="genreTitle">
+        <%= genre %> Stories
+      </h2>
+      <p id="genreInfo">Browse all stories in <%= genre %> genre.</p>
+    </div>
+    <a href="/library" id="backBtn" style="
+    margin: 20px 0;
+    background-color: #37a780;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-block;
+">&larr; Go Back to Library</a>
+
+    <div class="storyBox">
+      <% stories.forEach((story, i)=> { %>
+        <div class="storyBoxes box<%= i+1 %>">
+          <p class="genre <%= story.genre.toLowerCase() %>">
+            <%= story.genre %>
+          </p>
+          <div class="title">
+            <a href="/story/<%= story._id %>">
+              <%= story.title %>
+            </a>
+          </div>
+          <div class="story">
+            <p>
+              <%= story.content.substring(0, 150) %>...
+            </p>
+          </div>
+          <hr>
+          <div class="authorLike">
+            <p>By <%= story.author %>
+            </p>
+            <% if(user){ %>
+              <button class="likeBtn" data-id="<%= story._id %>">
+                Like (<span class="likeCount">
+                  <%= story.likes || 0 %>
+                </span>)
+              </button>
+              <% } %>
+          </div>
+        </div>
+        <% }) %>
+    </div>
+
+  </div>
+
+  <script src="/assets/dynamicNavbar.js"></script>
+
+  <script src="/assets/storyGenrePage.js"></script>
+   <script src="/assets/deleteAccount.js"></script>
+
+</body>
+
+</html>

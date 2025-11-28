@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="/library.css">
+    <link rel="stylesheet" href="/newnavbar.css">
+    <link rel="stylesheet" href="/colorPage.css">
+    <link rel="stylesheet" href="/responsiveLibrary.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="navbar" id="navbar"></div>
+
+
+    <div class="container">
+        <h2 class="library-h2">Library</h2>
+
+        <div class="searchBox">
+            <div class="searchingbox">
+                <!-- <input type="search" id="searchbox" placeholder="Search your story by title or genre"> -->
+            </div>
+
+            <hr>
+
+            <div class="links">
+                <a href="/library" data-genre="all">
+                    All <span class="count">(<%= genreCounts.all || 0 %>)</span>
+                </a>
+
+                <% const genres=[ "Horror" ,"Mystery","Action","Sci-Fi","Romance","Fantasy", "Comedy"
+                    ,"Adventure","Historical","Children" ]; %>
+
+                    <% genres.forEach(g=> { %>
+                        <a href="/library?genre=<%= g %>" data-genre="<%= g %>">
+                            <%= g %> <span class="count">(<%= genreCounts[g] || 0 %>)</span>
+                        </a>
+                        <% }); %>
+            </div>
+        </div>
+
+
+        <div class="storyBox">
+            <%
+    // Ensure stories array exists 
+    const allStories = typeof stories !== 'undefined' ? stories : [];
+%>
+
+<% if (allStories.length > 0) { %>
+    <% allStories.forEach((story, i) => { %>
+        <div class="storyBoxes box<%= i+1 %>">
+            <p class="genre <%= story.genre ? story.genre.toLowerCase().replace(/\s+/g, '-') : '' %>">
+                <%= story.genre || 'Unknown' %>
+            </p>
+            <div class="title">
+                <a href="/story/<%= story._id %>">
+                    <%= story.title || 'Untitled' %>
+                </a>
+            </div>
+            <div class="story">
+                <p>
+                    <%= story.content ? story.content.substring(0, 150) : 'No content available' %>...
+                </p>
+            </div>
+            <hr>
+            <div class="authorLike">
+                <p>By <%= story.author || 'Anonymous' %></p>
+
+                <button class="likeBtn" data-id="<%= story._id %>">
+                    Like (<span class="likeCount"><%= story.likes || 0 %></span>)
+                </button>
+            </div>
+        </div>
+    <% }) %>
+<% } else { %>
+    <p>No stories available at the moment.</p>
+<% } %>
+
+        </div>
+    </div>
+
+    <script src="/assets/dynamicNavbar.js"></script>
+    <script src="/assets/likeBtn.js"></script>
+     <script src="/assets/deleteAccount.js"></script>
+
+</body>
+
+</html>
