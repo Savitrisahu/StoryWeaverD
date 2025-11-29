@@ -31,7 +31,9 @@ app.use((req, res, next) => {
 });
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/mydb')
+// mongoose.connect('mongodb://localhost:27017/mydb')
+mongoose.connect('mongodb+srv://gunjan11normal_db_user:ErceBYMPef4na7We@cluster0.wfzf9os.mongodb.net/mydb')
+
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.log(err));
 
