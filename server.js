@@ -1,3 +1,7 @@
+// for running the mongodb cloud - 
+//     1. connect with system IP
+    
+
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
