@@ -9,6 +9,7 @@ const app = express();
 const Story = require('./models/storyBackend');
 const User = require('./models/user');
 
+let port = 3000
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 
 // MongoDB connection
 // mongoose.connect('mongodb://localhost:27017/mydb')
+// mongoose.connect('mongodb+srv://gunjan11normal_db_user:ErceBYMPef4na7We@cluster0.wfzf9os.mongodb.net/mydb')
 mongoose.connect('mongodb+srv://gunjan11normal_db_user:ErceBYMPef4na7We@cluster0.wfzf9os.mongodb.net/mydb')
 
     .then(() => console.log('Connected to MongoDB'))
@@ -46,6 +48,12 @@ function requireLogin(req, res, next) {
 /* ----------- ROUTES ------------ */
 
 // Home page
+
+app.get('/', (req, res) => {
+    res.redirect('/index');
+});
+
+
 app.get('/index', async (req, res) => {
     const stories = await Story.find().limit(3);
     res.render('index', { stories });
@@ -126,7 +134,8 @@ app.post('/login', async (req, res) => {
     if (!user) return res.send("User not found");
 
     const match = await bcrypt.compare(password, user.password);
-    if (!match) return res.send("Invalid password");
+    if (!match) return res.redirect('/signup');
+    // res.send("Invalid password");
 
     req.session.userId = user._id;
     req.session.username = user.username;
@@ -245,4 +254,4 @@ app.get("/current-user", (req, res) => {
     }
 });
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+app.listen(3000, () => console.log(`Server running on http://localhost:${port}`));
